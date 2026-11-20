@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/block.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,92 +8,104 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  void doSomething() {
-    print("Hi");
-  }
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: doSomething,
-            icon: const Icon(Icons.menu),
-          ),
-          backgroundColor: Colors.blue,
-          title: const Text("Profile"),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              ClipOval(
-                child: Image.asset(
-                  'assets/pic1.png',
-                  width: 300,
-                  height: 200,
-                  fit: BoxFit.cover,
-                ),
+      home: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Menu selected')),
+                  );
+                },
+                icon: const Icon(Icons.menu),
               ),
-              const SizedBox(height: 10),
-              const Text(
-                "Leo",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(88.888),
-                ),
-                child: const Row(
+              backgroundColor: Colors.blue,
+              title: const Text("Profile"),
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
                   children: [
-                    Icon(Icons.school, size: 17, color: Colors.yellow),
-                    SizedBox(width: 4),
-                    Text("Student"),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 40),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: const BoxDecoration(
-                            color: Colors.yellowAccent,
+                    ClipOval(
+                      child: Image.asset(
+                        'assets/pic1.png',
+                        width: 300,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      "Leo",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 50,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(88.888),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.school, size: 17, color: Colors.yellow),
+                          SizedBox(width: 4),
+                          Text("Student"),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: [
+                          Block(
+                            imagePath: 'assets/Servant_of_the_Lake.png',
+                            color: Colors.green,
+                            number: 80,
+                            title: "Servant of the Lake",
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                'assets/Servant_of_the_Lake.png',
-                                width: 50,
-                              ),
-                              const SizedBox(height: 10),
-                              const Text("80%"),
-                              const SizedBox(height: 10),
-                              const Text("Servant of the Lake.png"),
-                            ],
+                          Block(
+                            imagePath: 'assets/pic1.png',
+                            color: Colors.blue,
+                            number: 90,
+                            title: "Picture one",
                           ),
-                        ),
-                      ],
+                          Block(
+                            imagePath: 'assets/Servant_of_the_Lake.png',
+                            color: Colors.orange,
+                            number: 75,
+                            title: "Lake image",
+                          ),
+                          Block(
+                            imagePath: 'assets/pic1.png',
+                            color: Colors.purple,
+                            number: 60,
+                            title: "Profile image",
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
